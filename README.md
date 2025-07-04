@@ -58,21 +58,21 @@ Public Subnet 2:
 
 Private Subnet:
 
-   Name: my-priv-ajith
+    Name: my-priv-ajith
 
-   AZ: ap-south-1a
+    AZ: ap-south-1a
 
-   CIDR: 10.10.2.0/24
+    CIDR: 10.10.2.0/24
 
 2. Internet Gateway & Routing
 
-   IGW: my-proj-igw attached to the VPC
+     IGW: my-proj-igw attached to the VPC
 
-   Public Route Table: my-pub-ajith
+     Public Route Table: my-pub-ajith
 
-   Route: 0.0.0.0/0 → IGW
+     Route: 0.0.0.0/0 → IGW
 
-   Associated with both public subnets
+     Associated with both public subnets
 
 3. EC2 Instance Creation
 
