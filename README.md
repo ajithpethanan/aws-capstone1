@@ -30,9 +30,9 @@
 
 1. VPC & Subnet Configuration
 
-   VPC Name: my-vpc-proj-ajith
-
-   IPv4 CIDR: 10.10.0.0/16
+          VPC Name: my-vpc-proj-ajith
+ 
+          IPv4 CIDR: 10.10.0.0/16
 
 Subnets:
 
