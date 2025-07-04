@@ -48,21 +48,21 @@ Subnets:
 
 Public Subnet 2:
 
-   Name: my-pub2-ajith
+    Name: my-pub2-ajith
 
-   AZ: ap-south-1b
+    AZ: ap-south-1b
 
-   CIDR: 10.10.1.0/24
+    CIDR: 10.10.1.0/24
 
-   Auto-assign Public IP: Enabled
+    Auto-assign Public IP: Enabled
 
 Private Subnet:
 
-  Name: my-priv-ajith
+   Name: my-priv-ajith
 
-  AZ: ap-south-1a
+   AZ: ap-south-1a
 
-  CIDR: 10.10.2.0/24
+   CIDR: 10.10.2.0/24
 
 2. Internet Gateway & Routing
 
@@ -72,33 +72,33 @@ Private Subnet:
 
    Route: 0.0.0.0/0 → IGW
 
-Associated with both public subnets
+   Associated with both public subnets
 
 3. EC2 Instance Creation
 
-Public EC2:
+     Public EC2:
 
-  Name: myec2-pub
+         Name: myec2-pub
 
-  OS: Ubuntu
+         OS: Ubuntu
 
- Subnet: my-pub2-ajith
+         Subnet: my-pub2-ajith
 
- Public IP: Enabled
+         Public IP: Enabled
 
-Private EC2:
+    Private EC2:
 
- Name: myapp-ajith
+        Name: myapp-ajith
 
- OS: Ubuntu
+        OS: Ubuntu
 
- Subnet: my-priv-ajith
+        Subnet: my-priv-ajith
 
- Public IP: Disabled
+        Public IP: Disabled
 
 4. Connect to Private EC2 via Bastion Host
 
-   On myec2-pub, added private key file (key.pem)
+      On myec2-pub, added private key file (key.pem)
 
 # Set permissions:
 
@@ -107,17 +107,17 @@ Private EC2:
 
 5. Enable Internet on Private EC2
 
-      NAT Gateway: myprojnat-ajith
+              NAT Gateway: myprojnat-ajith
 
-      subnet: my-pub2-ajith
+              subnet: my-pub2-ajith
 
-      Allocated EIP
+              Allocated EIP
+ 
+              Private Route Table: mypriv-ajith
 
-      Private Route Table: mypriv-ajith
+              Route: 0.0.0.0/0 → NAT Gateway
 
-      Route: 0.0.0.0/0 → NAT Gateway
-
-      Associated with my-priv-ajith
+              Associated with my-priv-ajith
 
 6. Software Installation (on myapp-ajith)
 
@@ -132,102 +132,97 @@ Private EC2:
 
 Cloned repo:
 
-git clone https://github.com/Training-Demo/aws-code-main
-cd aws-code-main
+                git clone https://github.com/Training-Demo/aws-code-main
+                cd aws-code-main
 
 Updated config.py with:
 
-customhost: RDS endpoint
+              customhost: RDS endpoint
 
-customuser: admin
+              customuser: admin
 
-custompass: admin1234
+              custompass: admin1234
 
-customdb: database name
+              customdb: database name
 
-custombucket: S3 bucket name
+              custombucket: S3 bucket name
 
-customregion: ap-south-1
+              customregion: ap-south-1
 
 8. RDS Configuration
 
-Engine: MySQL
+             Engine: MySQL
 
-Template: Free tier
+             Template: Free tier
 
-VPC: my-vpc-proj-ajith
+             VPC: my-vpc-proj-ajith
 
-Credentials: admin / admin1234
+             Credentials: admin / admin1234
 
-Connected using:
+# Connected using:
 
-mysql -h <rds-endpoint> -u admin -p
-use <db-name>;
-show tables;
+              mysql -h <rds-endpoint> -u admin -p
+              use <db-name>;
+              show tables;
 
 9. DynamoDB
 
-Table: employee
+            Table: employee
 
-Partition key: emp-id
+            Partition key: emp-id
 
 10. S3 Bucket
 
-Name: my-proj-bucket-ajith
+           Name: my-proj-bucket-ajith
 
-Region: ap-south-1
+           Region: ap-south-1
 
 11. IAM Role & Policy
 
-Created Role: myprojrole-ajith
+            Created Role: myprojrole-ajith
 
-Attached Policies:
+            Attached Policies:AmazonS3FullAccess, AmazonRDSFullAccess
 
-AmazonS3FullAccess
-
-AmazonRDSFullAccess
-
-AmazonDynamoDBFullAccess
 
 Attached Role to EC2 (myapp-ajith)
 
 12. Load Balancer Setup
 
-Target Group: myproTG-ajith
+           Target Group: myproTG-ajith
 
-Type: Instance
+           Type: Instance
 
-Port: 80
+           Port: 80
 
-Protocol: HTTP
+           Protocol: HTTP
 
-ALB: myprojALB-ajith
+           ALB: myprojALB-ajith
 
-Scheme: Internet-facing
+           Scheme: Internet-facing
 
-Listener: HTTP, Port 80
+          Listener: HTTP, Port 80
 
-AZs: ap-south-1a, ap-south-1b
+          AZs: ap-south-1a, ap-south-1b
 
-Target Group: myproTG-ajith
+          Target Group: myproTG-ajith
 
 13. Accessing the Web App
 
-Open ALB DNS in browser
+         Open ALB DNS in browser
 
 Input employee details:
 
-ID, First Name, Last Name, Skills, Location
+        ID, First Name, Last Name, Skills, Location
 
-Upload image file
+        Upload image file
 
-On clicking Update Database:
+# On clicking Update Database:
 
-Data saved to RDS
+       Data saved to RDS
 
-Image uploaded to S3
+       Image uploaded to S3
 
-DynamoDB stores mapping of emp-id to image URL
+       DynamoDB stores mapping of emp-id to image URL
 
 # Outcome
 
